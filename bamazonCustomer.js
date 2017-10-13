@@ -1,14 +1,3 @@
-// on open, display all current items available to buy
-// then prompt user for one of two things: 
-	// ask for the ID of the product they want to buy
-	// ask how many units of the product they want to buy
-// once the order is placed, the app checks to see if there is enough quantity to satisfy the purchase 
-	// if not, display a phrase like "Insuff quant!" and prevent the order 
-	// if there is enough, fulfill the order 
-		// this means update the SQL database to reflect remaining quantity
-		// once the update goes thru, show customer the total cost of purchase 
-
-
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
@@ -40,8 +29,14 @@ function displayInventory() {
 
 		var invList = [];
 		for (var i = 0; i < res.length; i++) {
-			invList.push(res[i].product_name);
+			if (res[i].stock_quantity > 0) {
+				invList.push(res[i].product_name);
+			}
 		}
+
+		if (invList.length === 0) {
+			console.log("Sorry!  We're all out of inventory.");
+		} else {
 
 		inquirer
 			.prompt(
@@ -76,7 +71,7 @@ function displayInventory() {
 					.then(function(quantity) {
 						if (parseInt(quantity.quantity) <= selectedItem.stock_quantity) {
 							
-							var totalCost = (parseInt(selectedItem.price)*parseInt(quantity.quantity));
+							var totalCost = (parseFloat(selectedItem.price)*parseFloat(quantity.quantity));
 							
 							inquirer
 								.prompt(
@@ -113,27 +108,30 @@ function displayInventory() {
 											}
 										);
 
-										console.log("Congrats!\n"+
-											"You just purchased "+quantity.quantity+
+										console.log("\n*********************\n"+
+											"     Congrats!"+
+											"\n*********************\n"+
+											"\nYou just purchased "+quantity.quantity+
 											" of the "+selectedItem.product_name+
 											" for a total cost of $"+totalCost+".");
 
 										displayInventory();
 									}
 									else {
-										console.log("That's alright, let's start from the beginning.");
+										console.log("\nThat's alright, let's start from the beginning.");
 										displayInventory();
 									}
 								});
 
 						}
 						else {
-							console.log("Hold on tiger, there's not enough for that big of an order!"+
+							console.log("\nHold on tiger, there's not enough for that big of an order!"+
 								"  Let's start from the beginning.");
 							displayInventory();
 						}
 					});
 			});
+		}
 	});
 	// connection.end();
 }

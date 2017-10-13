@@ -18,14 +18,14 @@ INSERT INTO products
 (product_name, department_name, price, stock_quantity)
 VALUES 
 ("Vintage Yo-Yo", "Toys", 25.00, 5),
--- ("New Vacuum", "Appliances", 40.00, 1),
--- ("Knife Set", "Kitchen", 94.99, 7),
--- ("Car Tires", "Auto Parts", 139.00, 8),
--- ('60" TV', "Electronics", 499.95, 3),
--- ("Electric Drill", "Tools", 60.00, 20),
--- ("Spider-Man #1", "Comic Book", 425.00, 1),
--- ('Macbook Pro Retina 2015 13"', "Electronics", 750.00, 5),
+("Dusty Vacuum", "Appliances", 40.00, 1),
+("Knife Set", "Kitchen", 94.99, 7),
+("Bullet Blender", "Kitchen", 79.00, 8),
+('60" TV', "Electronics", 499.95, 3),
+("Electric Drill", "Tools", 60.00, 20),
+("Transformer Optimus Prime", "Toys", 25.00, 7),
+('Macbook Pro Retina 2015 13"', "Electronics", 750.00, 5),
 ("Pixel 2", "Electronics", 949.00, 3),
-("Tesla Model S", "Automobile", 122500.00, 1);
+("Clothes Drier and Washer Combo", "Appliances", 449.95, 1);
 
 SELECT * FROM products;
